@@ -6,13 +6,20 @@ import (
 	"net/http"
 )
 
-func formData() {
+func formData() (string, error) {
 	// This Function isn't implemented yet!
-	req, err := json.Marshal(map[string]string{
-		"entry.838304731": "name",
-	})
 
-	fmt.Printf("%v\n\n%v", req, err)
+	req, err := json.MarshalIndent(map[string]string{
+		"entry.838304731":  "name",
+		"entry.2146648422": "2",
+		"entry.2129567656": "0",
+		"entry.1114548755": "0",
+		"entry.773910481":  "0",
+	}, "", "\t")
+
+	// _ = ioutil.WriteFile("test.json", req, 0644)
+
+	return string(req), err
 }
 
 func main() {
@@ -27,6 +34,6 @@ func main() {
 	} else {
 		fmt.Println(err.Error())
 	}
-
-	formData()
+	data, err := formData()
+	fmt.Println(data, err)
 }
