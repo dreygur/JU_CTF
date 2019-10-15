@@ -4,8 +4,29 @@ import (
 	"encoding/json"
 	"fmt"
 	"juctf"
+	"math/rand"
 	"net/http"
 )
+
+func name(n int) string {
+	// This function returns some random names
+	chars := "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_."
+	name := make([]byte, n)
+	for i := range name {
+		name[i] = chars[rand.Intn(len(chars))]
+	}
+
+	fmt.Println(string(name))
+	return string(name)
+}
+
+func email(n int) string {
+	// Returns a email address
+	domains := []string{"@gmail.com", "@yahoo.com", "@outlook.com", "@yandex.com", "@hotmail.com"}
+	fmt.Println(domains)
+	email := name(rand.Intn(n)) + domains[rand.Intn(len(domains))]
+	return email
+}
 
 func formData() (string, error) {
 	// This Function isn't implemented yet!
@@ -37,6 +58,8 @@ func main() {
 	}
 	data, err := formData()
 	fmt.Println(data, err)
+
+	fmt.Println(email(6))
 
 	fmt.Println(juctf.Uname())
 }
